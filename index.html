@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Septi Stitch - Layanan Jahit & Konveksi Custom</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- File CSS Eksternal -->
+    <link rel="stylesheet" href="style.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            navy: '#0F172A',
+                            navylight: '#1E293B',
+                            gold: '#D97706',
+                            goldlight: '#F59E0B',
+                            goldbg: '#FFFBEB',
+                            cream: '#FAF9F6',
+                            graybg: '#F8FAFC'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-900 text-slate-800 font-sans min-h-screen flex items-center justify-center p-0 sm:p-4">
+
+    <!-- Screen Wrapper / Device Frame -->
+    <div class="w-full max-w-[430px] h-[100vh] sm:h-[880px] bg-brand-graybg sm:rounded-[48px] shadow-2xl border-0 sm:border-[8px] border-slate-800 flex flex-col relative overflow-hidden">
+        
+        <!-- Mobile Status Bar (Visual Decorator) -->
+        <div class="bg-brand-navy text-white px-6 pt-3 pb-2 flex justify-between items-center text-xs font-semibold z-30 select-none">
+            <span>09:41</span>
+            <!-- Speaker Notch for Desktop Preview -->
+            <div class="hidden sm:block w-20 h-4 bg-slate-800 rounded-full"></div>
+            <div class="flex items-center space-x-2 text-[10px]">
+                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-full text-sm text-brand-goldlight"></i>
+            </div>
+        </div>
+
+        <!-- App Header Bar -->
+        <header class="bg-brand-navy text-white px-5 py-3.5 flex items-center justify-between shadow-md z-20">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-gold to-brand-goldlight flex items-center justify-center text-slate-900 font-extrabold text-lg shadow-sm">
+                    <i class="fa-solid fa-scissors"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-base tracking-wide leading-tight text-amber-50">Butik Pikko</h1>
+                    <p class="text-[10px] text-amber-200/80 font-light">Custom & Repair</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button onclick="switchTab('tracking')" class="relative p-2 text-slate-300 hover:text-brand-gold transition">
+                    <i class="fa-solid fa-bell text-lg"></i>
+                    <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-brand-gold rounded-full ring-2 ring-brand-navy"></span>
+                </button>
+                <div class="w-8 h-8 rounded-full bg-slate-700 border border-brand-gold/40 flex items-center justify-center text-xs font-bold text-amber-300 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="User Avatar" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </header>
+
+        <!-- Dynamic Main Scrollable Viewport -->
+        <main class="flex-1 overflow-y-auto no-scrollbar pb-24 bg-slate-50 relative">
+
+            <!-- TAB 1: BERANDA (HOME) -->
+            <section id="view-home" class="tab-content active p-4 space-y-5">
+                
+                <!-- Welcome Banner Card -->
+                <div class="bg-gradient-to-r from-brand-navy to-brand-navylight rounded-2xl p-4 text-white shadow-lg relative overflow-hidden border border-slate-700">
+                    <div class="absolute -right-4 -bottom-6 text-slate-700/20 text-8xl pointer-events-none">
+                        <i class="fa-solid fa-vest-patches"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <span class="inline-block px-2.5 py-0.5 rounded-full bg-brand-gold/20 text-brand-goldlight text-[10px] font-semibold mb-2 border border-brand-gold/30">
+                            ✨ Penjahit Berpengalaman >10 Tahun
+                        </span>
+                        <h2 class="text-lg font-bold leading-snug">Selamat Datang, Kak Septi!</h2>
+                        <p class="text-xs text-slate-300 mt-1 max-w-[85%]">Wujudkan pakaian impian dengan ukuran presisi dan jaminan garansi pas di badan.</p>
+                        
+                        <div class="mt-4 flex items-center space-x-2">
+                            <button onclick="switchTab('order')" class="bg-gradient-to-r from-brand-gold to-brand-goldlight text-slate-950 font-bold px-4 py-2 rounded-xl text-xs shadow-md hover:brightness-110 active:scale-95 transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-plus text-xs"></i> Pesan Jahit Baru
+                            </button>
+                            <button onclick="switchTab('measurements')" class="bg-slate-800/80 text-amber-100 hover:bg-slate-800 font-medium px-3 py-2 rounded-xl text-xs border border-slate-600 transition">
+                                <i class="fa-solid fa-ruler-horizontal mr-1 text-brand-gold"></i> Ukuran Saya
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Order Highlight Banner -->
+                <div class="bg-amber-50/80 border border-amber-200 rounded-2xl p-3.5 shadow-sm flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-brand-gold flex items-center justify-center text-lg font-bold">
+                            <i class="fa-solid fa-shirt"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-bold text-slate-900">Kebaya Brokat Modern</span>
+                                <span class="bg-amber-100 text-amber-800 text-[9px] font-bold px-2 py-0.5 rounded-full">Proses Jahit</span>
+                            </div>
+                            <p class="text-[11px] text-slate-500 mt-0.5">Estimasi selesai: <span class="font-semibold text-slate-700">12 Nov 2026</span></p>
+                        </div>
+                    </div>
+                    <button onclick="switchTab('tracking')" class="text-xs font-bold text-brand-gold hover:text-amber-700 p-2">
+                        Lacak <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+                    </button>
+                </div>
+
+                <!-- Quick Menu Grid -->
+                <div>
+                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3 px-1">Akses Cepat</h3>
+                    <div class="grid grid-cols-4 gap-2.5">
+                        <button onclick="switchTab('order')" class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center hover:border-brand-gold/40 transition active:scale-95">
+                            <div class="w-11 h-11 rounded-xl bg-slate-100 text-brand-navy flex items-center justify-center text-lg mb-1.5">
+                                <i class="fa-solid fa-scissors text-brand-gold"></i>
+                            </div>
+                            <span class="text-[11px] font-semibold text-slate-700 text-center leading-tight">Pesan Jahit</span>
+                        </button>
+                        
+                        <button onclick="switchTab('catalog')" class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center hover:border-brand-gold/40 transition active:scale-95">
+                            <div class="w-11 h-11 rounded-xl bg-slate-100 text-brand-navy flex items-center justify-center text-lg mb-1.5">
+                                <i class="fa-solid fa-book-open text-blue-600"></i> 
+                            </div>
+                            <span class="text-[11px] font-semibold text-slate-700 text-center leading-tight">Katalog Model</span>
+                        </button>
+
+                        <button onclick="switchTab('measurements')" class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center hover:border-brand-gold/40 transition active:scale-95">
+                            <div class="w-11 h-11 rounded-xl bg-slate-100 text-brand-navy flex items-center justify-center text-lg mb-1.5">
+                                <i class="fa-solid fa-tape text-emerald-600"></i>
+                            </div>
+                            <span class="text-[11px] font-semibold text-slate-700 text-center leading-tight">Panduan Ukur</span>
+                        </button>
+
+                        <button onclick="switchTab('tracking')" class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center hover:border-brand-gold/40 transition active:scale-95">
+                            <div class="w-11 h-11 rounded-xl bg-slate-100 text-brand-navy flex items-center justify-center text-lg mb-1.5">
+                                <i class="fa-solid fa-truck-fast text-purple-600"></i>
+                            </div>
+                            <span class="text-[11px] font-semibold text-slate-700 text-center leading-tight">Lacak Order</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Featured Catalog Horizontal Scroll -->
+                <div>
+                    <div class="flex justify-between items-center mb-3 px-1">
+                        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Inspirasi Pilihan</h3>
+                        <button onclick="switchTab('catalog')" class="text-xs font-bold text-brand-gold hover:underline">Lihat Semua</button>
+                    </div>
+                    <div class="flex space-x-3 overflow-x-auto no-scrollbar pb-2 pt-1 -mx-4 px-4">
+                        <!-- Card 1 -->
+                        <div class="min-w-[170px] bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 flex-shrink-0 group cursor-pointer" onclick="selectCatalogItem('Kebaya Brokat Wisuda')">
+                            <div class="h-28 bg-slate-200 relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" alt="Kebaya">
+                                <span class="absolute top-2 right-2 bg-slate-900/80 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded-full">Favorit</span>
+                            </div>
+                            <div class="p-3">
+                                <h4 class="text-xs font-bold text-slate-800 truncate">Kebaya Brokat Wisuda</h4>
+                                <p class="text-[10px] text-slate-500 mt-0.5">Ongkos jahit mulai</p>
+                                <p class="text-xs font-extrabold text-brand-gold mt-0.5">Rp 250.000</p>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="min-w-[170px] bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 flex-shrink-0 group cursor-pointer" onclick="selectCatalogItem('Kemeja Batik Pria')">
+                            <div class="h-28 bg-slate-200 relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" alt="Batik">
+                                <span class="absolute top-2 right-2 bg-brand-gold text-slate-950 text-[9px] font-bold px-2 py-0.5 rounded-full">Lapis Furing</span>
+                            </div>
+                            <div class="p-3">
+                                <h4 class="text-xs font-bold text-slate-800 truncate">Kemeja Batik Pria</h4>
+                                <p class="text-[10px] text-slate-500 mt-0.5">Ongkos jahit mulai</p>
+                                <p class="text-xs font-extrabold text-brand-gold mt-0.5">Rp 180.000</p>
+                            </div>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="min-w-[170px] bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 flex-shrink-0 group cursor-pointer" onclick="selectCatalogItem('Jas Formal Slimfit')">
+                            <div class="h-28 bg-slate-200 relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" alt="Jas">
+                            </div>
+                            <div class="p-3">
+                                <h4 class="text-xs font-bold text-slate-800 truncate">Jas Formal Slimfit</h4>
+                                <p class="text-[10px] text-slate-500 mt-0.5">Ongkos jahit mulai</p>
+                                <p class="text-xs font-extrabold text-brand-gold mt-0.5">Rp 650.000</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quality Guarantee Banner -->
+                <div class="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm flex items-start space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center text-lg flex-shrink-0">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold text-slate-800">Garansi Fitting 100% Pas</h4>
+                        <p class="text-[11px] text-slate-500 mt-0.5">Jika jahitan terasa sempit atau longgar, kami berikan fasilitas permak revisi secara gratis dalam 14 hari.</p>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- TAB 2: KATALOG & ESTIMASI HARGA -->
+            <section id="view-catalog" class="tab-content p-4 space-y-4">
+                
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-base font-bold text-slate-900">Katalog Model & Ongkos</h2>
+                        <p class="text-xs text-slate-500">Pilih inspirasi model pakaian custom Anda</p>
+                    </div>
+                    <button onclick="openEstimatorModal()" class="bg-amber-100 text-amber-900 font-semibold text-xs px-2.5 py-1.5 rounded-lg border border-amber-300 flex items-center gap-1">
+                        <i class="fa-solid fa-calculator text-brand-gold"></i> Simulator Harga
+                    </button>
+                </div>
+
+                <!-- Category Filters Bar -->
+                <div class="flex space-x-2 overflow-x-auto no-scrollbar py-1">
+                    <button onclick="filterCatalog('all', this)" class="catalog-filter-btn active bg-brand-navy text-white text-xs px-3.5 py-1.5 rounded-full font-semibold whitespace-nowrap shadow-sm">Semua</button>
+                    <button onclick="filterCatalog('kebaya', this)" class="catalog-filter-btn bg-white text-slate-600 text-xs px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border border-slate-200">Kebaya & Dress</button>
+                    <button onclick="filterCatalog('batik', this)" class="catalog-filter-btn bg-white text-slate-600 text-xs px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border border-slate-200">Batik & Kemeja</button>
+                    <button onclick="filterCatalog('jas', this)" class="catalog-filter-btn bg-white text-slate-600 text-xs px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border border-slate-200">Jas & Blazer</button>
+                    <button onclick="filterCatalog('gamis', this)" class="catalog-filter-btn bg-white text-slate-600 text-xs px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border border-slate-200">Gamis & Syar'i</button>
+                </div>
+
+                <!-- Catalog Grid Items -->
+                <div class="grid grid-cols-2 gap-3" id="catalog-grid">
+                    
+                    <!-- Item 1 -->
+                    <div class="catalog-item kebaya bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 flex flex-col justify-between">
+                        <div>
+                            <div class="h-32 bg-slate-100 relative">
+                                <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover" alt="Kebaya Brokat">
+                                <span class="absolute bottom-2 left-2 bg-slate-900/80 backdrop-blur-md text-white text-[9px] font-bold px-2 py-0.5 rounded-md">Estimasi 5-7 Hari</span>
+                            </div>
+                            <div class="p-3">
+                                <span class="text-[9px] font-bold text-amber-600 uppercase tracking-wider">Kebaya</span>
+                                <h3 class="text-xs font-bold text-slate-800 line-clamp-1">Kebaya Brokat Wisuda</h3>
+                                <p class="text-[10px] text-slate-500 mt-1 line-clamp-2">Termasuk pasang furing, payet dada standar, dan resleting belakang.</p>
+                            </div>
+                        </div>
+                        <div class="p-3 pt-0">
+                            <p class="text-xs font-extrabold text-brand-navy">Rp 250.000</p>
+                            <button onclick="selectCatalogItem('Kebaya Brokat Wisuda')" class="w-full mt-2 bg-slate-100 hover:bg-brand-gold hover:text-slate-950 text-slate-800 text-xs font-bold py-1.5 rounded-xl transition">Pesan Model Ini</button>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="catalog-item batik bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 flex flex-col justify-between">
+                        <div>
+                            <div class="h-32 bg-slate-100 relative">
+                                <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover" alt="Kemeja Batik">
+                                <span class="absolute bottom-2 left-2 bg-slate-900/80 backdrop-blur-md text-white text-[9px] font-bold px-2 py-0.5 rounded-md">Estimasi 3-5 Hari</span>
+                            </div>
+                            <div class="p-3">
+                                <span class="text-[9px] font-bold text-amber-600 uppercase tracking-wider">Batik</span>
+                                <h3 class="text-xs font-bold text-slate-800 line-clamp-1">Kemeja Batik Lapis Furing</h3>
+                                <p class="text-[10px] text-slate-500 mt-1 line-clamp-2">Jahitan rapi presisi motif batik sambung (matching motif).</p>
+                            </div>
+                        </div>
+                        <div class="p-3 pt-0">
+                            <p class="text-xs font-extrabold text-brand-navy">Rp 180.000</p>
+                            <button onclick="selectCatalogItem('Kemeja Batik Lapis Furing')" class="w-full mt-2 bg-slate-100 hover:bg-brand-gold hover:text-slate-950 text-slate-800 text-xs font-bold py-1.5 rounded-xl transition">Pesan Model Ini</button>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="catalog-item jas bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 flex flex-col justify-between">
+                        <div>
+                            <div class="h-32 bg-slate-100 relative">
+                                <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover" alt="Jas Formal">
+                                <span class="absolute bottom-2 left-2 bg-slate-900/80 backdrop-blur-md text-white text-[9px] font-bold px-2 py-0.5 rounded-md">Estimasi 7-10 Hari</span>
+                            </div>
+                            <div class="p-3">
+                                <span class="text-[9px] font-bold text-amber-600 uppercase tracking-wider">Jas</span>
+                                <h3 class="text-xs font-bold text-slate-800 line-clamp-1">Jas Formal & Blazer</h3>
+                                <p class="text-[10px] text-slate-500 mt-1 line-clamp-2">Paddings bahu struktural, lapel kaku presisi, furing dormeuil.</p>
+                            </div>
+                        </div>
+                        <div class="p-3 pt-0">
+                            <p class="text-xs font-extrabold text-brand-navy">Rp 650.000</p>
+                            <button onclick="selectCatalogItem('Jas Formal & Blazer')" class="w-full mt-2 bg-slate-100 hover:bg-brand-gold hover:text-slate-950 text-slate-800 text-xs font-bold py-1.5 rounded-xl transition">Pesan Model Ini</button>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="catalog-item gamis bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 flex flex-col justify-between">
+                        <div>
+                            <div class="h-32 bg-slate-100 relative">
+                                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover" alt="Gamis Silk">
+                                <span class="absolute bottom-2 left-2 bg-slate-900/80 backdrop-blur-md text-white text-[9px] font-bold px-2 py-0.5 rounded-md">Estimasi 4-6 Hari</span>
+                            </div>
+                            <div class="p-3">
+                                <span class="text-[9px] font-bold text-amber-600 uppercase tracking-wider">Gamis</span>
+                                <h3 class="text-xs font-bold text-slate-800 line-clamp-1">Gamis Custom & Outer</h3>
+                                <p class="text-[10px] text-slate-500 mt-1 line-clamp-2">Potongan A-Line/Payung, wudhu friendly, kancing bungkus.</p>
+                            </div>
+                        </div>
+                        <div class="p-3 pt-0">
+                            <p class="text-xs font-extrabold text-brand-navy">Rp 220.000</p>
+                            <button onclick="selectCatalogItem('Gamis Custom & Outer')" class="w-full mt-2 bg-slate-100 hover:bg-brand-gold hover:text-slate-950 text-slate-800 text-xs font-bold py-1.5 rounded-xl transition">Pesan Model Ini</button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- TAB 3: FORMULIR PESAN JAHIT -->
+            <section id="view-order" class="tab-content p-4 space-y-4">
+                
+                <div>
+                    <h2 class="text-base font-bold text-slate-900">Formulir Pesanan Jahit</h2>
+                    <p class="text-xs text-slate-500">Isi detail pakaian custom yang ingin Anda buat</p>
+                </div>
+
+                <form id="orderForm" onsubmit="handleOrderSubmit(event)" class="space-y-4">
+                    
+                    <!-- 1. Jenis & Model Pakaian -->
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 space-y-3">
+                        <h3 class="text-xs font-bold text-brand-navy uppercase tracking-wider flex items-center gap-2">
+                            <span class="w-5 h-5 rounded-full bg-brand-gold text-slate-950 flex items-center justify-center text-[10px]">1</span>
+                            Jenis & Model Pakaian
+                        </h3>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Model Pakaian *</label>
+                            <input type="text" id="orderModelName" required placeholder="Contoh: Kebaya Brokat Wisuda / Kemeja Batik" class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-gold">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Kategori Pakaian</label>
+                            <select id="orderCategory" class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-gold bg-white">
+                                <option value="Kebaya / Gaun Pesta">Kebaya / Gaun Pesta</option>
+                                <option value="Kemeja Batik / Formal">Kemeja Batik / Formal</option>
+                                <option value="Jas / Blazer">Jas / Blazer</option>
+                                <option value="Gamis / Busana Muslim">Gamis / Busana Muslim</option>
+                                <option value="Seragam / Konveksi Custom">Seragam / Konveksi Custom</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 2. Penyediaan Kain/Bahan -->
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 space-y-3">
+                        <h3 class="text-xs font-bold text-brand-navy uppercase tracking-wider flex items-center gap-2">
+                            <span class="w-5 h-5 rounded-full bg-brand-gold text-slate-950 flex items-center justify-center text-[10px]">2</span>
+                            Bahan & Kain
+                        </h3>
+
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="cursor-pointer">
+                                <input type="radio" name="fabricSource" value="Bawa Kain Sendiri" checked class="peer hidden" onchange="toggleFabricOption()">
+                                <div class="p-3 rounded-xl border border-slate-200 text-center peer-checked:border-brand-gold peer-checked:bg-amber-50/50 peer-checked:text-amber-900 transition">
+                                    <i class="fa-solid fa-box-archive text-sm mb-1 block text-brand-gold"></i>
+                                    <span class="text-xs font-bold block">Bawa Sendiri</span>
+                                    <span class="text-[9px] text-slate-500">Kirim/Antar kain ke workshop</span>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="fabricSource" value="Disediakan Penjahit" class="peer hidden" onchange="toggleFabricOption()">
+                                <div class="p-3 rounded-xl border border-slate-200 text-center peer-checked:border-brand-gold peer-checked:bg-amber-50/50 peer-checked:text-amber-900 transition">
+                                    <i class="fa-solid fa-store text-sm mb-1 block text-brand-gold"></i>
+                                    <span class="text-xs font-bold block">Beli dari Septi</span>
+                                    <span class="text-[9px] text-slate-500">Konsultasi pilihan kain</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div id="fabricNoteBox">
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Catatan Jenis Kain & Warna</label>
+                            <input type="text" placeholder="Misal: Kain Katun Primissima Motif Parang Warna Navy" class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-gold">
+                        </div>
+                    </div>
+
+                    <!-- 3. Profil Ukuran Badan -->
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 space-y-3">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-xs font-bold text-brand-navy uppercase tracking-wider flex items-center gap-2">
+                                <span class="w-5 h-5 rounded-full bg-brand-gold text-slate-950 flex items-center justify-center text-[10px]">3</span>
+                                Ukuran Badan
+                            </h3>
+                            <button type="button" onclick="switchTab('measurements')" class="text-[11px] font-bold text-brand-gold hover:underline">Edit Ukuran</button>
+                        </div>
+
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 flex items-center justify-between">
+                            <div>
+                                <span class="text-xs font-bold text-slate-800 block" id="selectedProfileName">Profil: Ukuran Pribadi (Septi)</span>
+                                <span class="text-[10px] text-slate-500">LD: 92cm | LP: 74cm | PL: 56cm</span>
+                            </div>
+                            <span class="text-xs text-emerald-600 font-bold bg-emerald-50 px-2 py-1 rounded-md border border-emerald-200">
+                                <i class="fa-solid fa-check mr-0.5"></i> Lengkap
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- 4. Catatan Khusus & Foto Contoh -->
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 space-y-3">
+                        <h3 class="text-xs font-bold text-brand-navy uppercase tracking-wider flex items-center gap-2">
+                            <span class="w-5 h-5 rounded-full bg-brand-gold text-slate-950 flex items-center justify-center text-[10px]">4</span>
+                            Catatan & Foto Desain
+                        </h3>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Catatan Tambahan Jahitan</label>
+                            <textarea rows="2" placeholder="Contoh: Minta ditambah kupnat depan belakang, lengan pakai karet wudhu..." class="w-full text-xs px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-gold"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Upload Foto Model / Referensi (Opsional)</label>
+                            <div class="border-2 border-dashed border-slate-200 rounded-xl p-3 text-center cursor-pointer hover:bg-slate-50 transition" onclick="document.getElementById('fileUpload').click()">
+                                <i class="fa-solid fa-cloud-arrow-up text-brand-gold text-xl mb-1"></i>
+                                <span class="block text-xs font-semibold text-slate-600">Klik untuk upload sampel gambar</span>
+                                <span class="text-[9px] text-slate-400">JPG, PNG maks 5MB</span>
+                                <input type="file" id="fileUpload" class="hidden" accept="image/*" onchange="handleFilePreview(this)">
+                            </div>
+                            <div id="filePreview" class="hidden mt-2 flex items-center gap-2 bg-slate-100 p-2 rounded-lg text-xs">
+                                <i class="fa-solid fa-image text-brand-gold"></i>
+                                <span id="fileName" class="truncate flex-1 font-medium text-slate-700"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ringkasan Biaya Estimasi -->
+                    <div class="bg-slate-900 text-white p-4 rounded-2xl shadow-md space-y-2">
+                        <div class="flex justify-between text-xs text-slate-300">
+                            <span>Estimasi Ongkos Jahit Base</span>
+                            <span font-semibold>Rp 250.000</span>
+                        </div>
+                        <div class="flex justify-between text-xs text-slate-300">
+                            <span>Garansi Pas & Finishing</span>
+                            <span class="text-emerald-400 font-semibold">GRATIS</span>
+                        </div>
+                        <div class="border-t border-slate-700 pt-2 flex justify-between items-center">
+                            <div>
+                                <span class="text-xs font-bold text-slate-200 block">Total Estimasi</span>
+                                <span class="text-[9px] text-slate-400">Belum termasuk ongkir/kain</span>
+                            </div>
+                            <span class="text-base font-extrabold text-brand-goldlight">Rp 250.000</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-gradient-to-r from-brand-gold to-brand-goldlight text-slate-950 font-extrabold text-sm py-3.5 rounded-xl shadow-lg hover:brightness-110 active:scale-98 transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Kirim Pesanan Jahit
+                    </button>
+
+                </form>
+
+            </section>
+
+            <!-- TAB 4: UKURAN BADAN (MEASUREMENTS MANAGER) -->
+            <section id="view-measurements" class="tab-content p-4 space-y-4">
+                
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-base font-bold text-slate-900">Ukuran Badan Anda</h2>
+                        <p class="text-xs text-slate-500">Simpan profil ukuran agar tidak perlu diukur ulang</p>
+                    </div>
+                    <button onclick="saveMeasurementsToast()" class="bg-brand-navy text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm hover:bg-slate-800 transition">
+                        <i class="fa-solid fa-floppy-disk text-brand-gold mr-1"></i> Simpan
+                    </button>
+                </div>
+
+                <!-- Measurement Profile Switcher Tabs -->
+                <div class="flex bg-slate-200/70 p-1 rounded-xl gap-1">
+                    <button onclick="switchProfile('Pribadi')" id="prof-Pribadi" class="prof-tab active flex-1 bg-white text-brand-navy font-bold text-xs py-1.5 rounded-lg shadow-sm text-center">Saya (Septi)</button>
+                    <button onclick="switchProfile('Suami')" id="prof-Suami" class="prof-tab flex-1 text-slate-600 font-semibold text-xs py-1.5 rounded-lg text-center">Suami</button>
+                    <button onclick="switchProfile('Anak')" id="prof-Anak" class="prof-tab flex-1 text-slate-600 font-semibold text-xs py-1.5 rounded-lg text-center">Anak</button>
+                </div>
+
+                <!-- Measurement Guide Visual Banner -->
+                <div class="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 p-3 rounded-2xl flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-white rounded-xl shadow-sm border border-amber-200 flex items-center justify-center text-brand-gold text-xl flex-shrink-0">
+                        <i class="fa-solid fa-tape"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-xs font-bold text-slate-800">Bingung Cara Mengukur?</h4>
+                        <p class="text-[10px] text-slate-600 mt-0.5">Gunakan meteran kain lingkar tanpa ditarik terlalu kencang (+1-2cm kelonggaran).</p>
+                    </div>
+                </div>
+
+                <!-- Measurements Input Grid -->
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 space-y-3">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Detail Ukuran (Sentimeter / CM)</h3>
+                    
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-700 mb-1">1. Lingkar Dada (LD)</label>
+                            <div class="relative">
+                                <input type="number" id="m_ld" value="92" class="w-full text-xs px-3 py-2 rounded-xl border border-slate-200 focus:border-brand-gold focus:outline-none pr-8">
+                                <span class="absolute right-3 top-2 text-[10px] text-slate-400 font-bold">cm</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-700 mb-1">2. Lingkar Pinggang</label>
+                            <div class="relative">
+                                <input type="number" id="m_lp" value="74" class="w-full text-xs px-3 py-2 rounded-xl border border-slate-200 focus:border-brand-gold focus:outline-none pr-8">
+                                <span class="absolute right-3 top-2 text-[10px] text-slate-400 font-bold">cm</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-700 mb-1">3. Lingkar Pinggul</label>
+                            <div class="relative">
+                                <input type="number" id="m_lpinggul" value="98" class="w-full text-xs px-3 py-2 rounded-xl border border-slate-200 focus:border-brand-gold focus:outline-none pr-8">
+                                <span class="absolute right-3 top-2 text-[10px] text-slate-400 font-bold">cm</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-700 mb-1">4. Lebar Bahu</label>
+                            <div class="relative">
+                                <input type="number" id="m_bahu" value="38" class="w-full text-xs px-3 py-2 rounded-xl border border-slate-200 focus:border-brand-gold focus:outline-none pr-8">
+                                <span class="absolute right-3 top-2 text-[10px] text-slate-400 font-bold">cm</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-700 mb-1">5. Panjang Lengan</label>
+                            <div class="relative">
+                                <input type="number" id="m_lengan" value="56" class="w-full text-xs px-3 py-2 rounded-xl border border-slate-200 focus:border-brand-gold focus:outline-none pr-8">
+                                <span class="absolute right-3 top-2 text-[10px] text-slate-400 font-bold">cm</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-700 mb-1">6. Panjang Baju/Gaun</label>
+                            <div class="relative">
+                                <input type="number" id="m_pbaju" value="135" class="w-full text-xs px-3 py-2 rounded-xl border border-slate-200 focus:border-brand-gold focus:outline-none pr-8">
+                                <span class="absolute right-3 top-2 text-[10px] text-slate-400 font-bold">cm</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Self Service Measurement Guide Accordion -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+                    <button onclick="toggleGuideAccordion()" class="w-full p-3.5 text-left flex justify-between items-center text-xs font-bold text-slate-800">
+                        <span><i class="fa-solid fa-circle-info text-brand-gold mr-2"></i>Panduan Cara Mengukur Mandiri</span>
+                        <i id="guideIcon" class="fa-solid fa-chevron-down text-slate-400 transition transform"></i>
+                    </button>
+                    <div id="guideContent" class="hidden p-3.5 pt-0 border-t border-slate-100 text-[11px] text-slate-600 space-y-2">
+                        <p><strong>• Lingkar Dada (LD):</strong> Ukur melingkari dada bagian paling menonjol lewat ketiak.</p>
+                        <p><strong>• Lingkar Pinggang:</strong> Ukur bagian pinggang paling ramping (di atas pusar).</p>
+                        <p><strong>• Panjang Lengan:</strong> Dari tulang puncak bahu hingga tulang pergelangan tangan.</p>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- TAB 5: LACAK PESANAN (TIMELINE TRACKER) -->
+            <section id="view-tracking" class="tab-content p-4 space-y-4">
+                
+                <div>
+                    <h2 class="text-base font-bold text-slate-900">Status & Lacak Pesanan</h2>
+                    <p class="text-xs text-slate-500">Pantau progress pembuatan baju Anda secara real-time</p>
+                </div>
+
+                <!-- Active Order Info Card -->
+                <div class="bg-brand-navy text-white p-4 rounded-2xl shadow-md border border-slate-700 relative overflow-hidden">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-[9px] font-bold tracking-widest text-brand-gold uppercase block">Kode Order: #ST-88219</span>
+                            <h3 class="text-sm font-bold mt-0.5 text-amber-50">Kebaya Brokat Modern Wisuda</h3>
+                            <p class="text-[11px] text-slate-300 mt-1">Pemesan: <span class="text-white font-semibold">Kak Septi</span></p>
+                        </div>
+                        <span class="bg-amber-500/20 text-brand-goldlight border border-brand-gold/30 text-[10px] font-bold px-2.5 py-1 rounded-full">
+                            Proses Penjahitan
+                        </span>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-xs">
+                        <div>
+                            <span class="text-[10px] text-slate-400 block">Estimasi Selesai</span>
+                            <span class="font-bold text-amber-200">12 November 2026</span>
+                        </div>
+                        <button onclick="contactTailorWA()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[11px] px-3 py-1.5 rounded-xl flex items-center gap-1.5 transition">
+                            <i class="fa-brands fa-whatsapp text-sm"></i> Tanya Penjahit
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Interactive Timeline Process -->
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Tahapan Pengerjaan Jahit</h3>
+
+                    <div class="relative timeline-line space-y-6">
+                        
+                        <!-- Step 1 (Done) -->
+                        <div class="flex items-start space-x-3 relative z-10">
+                            <div class="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs font-bold shadow-md flex-shrink-0">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div class="pt-0.5">
+                                <h4 class="text-xs font-bold text-slate-800">Pesanan Diterima & Verifikasi Ukuran</h4>
+                                <p class="text-[10px] text-slate-500 mt-0.5">01 Nov 2026 - Kain & formulir ukuran sudah divalidasi oleh Septi Stitch.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 (Done) -->
+                        <div class="flex items-start space-x-3 relative z-10">
+                            <div class="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs font-bold shadow-md flex-shrink-0">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div class="pt-0.5">
+                                <h4 class="text-xs font-bold text-slate-800">Pemotongan Pola Kain</h4>
+                                <p class="text-[10px] text-slate-500 mt-0.5">03 Nov 2026 - Pemotongan bahan utama & furing sesuai pola presisi.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 (Active) -->
+                        <div class="flex items-start space-x-3 relative z-10">
+                            <div class="w-10 h-10 rounded-full bg-brand-gold text-slate-950 flex items-center justify-center text-xs font-bold shadow-md ring-4 ring-amber-100 flex-shrink-0 animate-pulse">
+                                <i class="fa-solid fa-scissors"></i>
+                            </div>
+                            <div class="pt-0.5">
+                                <div class="flex items-center gap-2">
+                                    <h4 class="text-xs font-bold text-brand-gold">Proses Penjahitan Utama</h4>
+                                    <span class="text-[9px] font-bold bg-amber-100 text-amber-800 px-1.5 py-0.2 rounded">Sedang Berjalan</span>
+                                </div>
+                                <p class="text-[10px] text-slate-600 mt-0.5">05 Nov 2026 - Penjahitan struktur kebaya, furing, & detail lengan.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 4 (Upcoming) -->
+                        <div class="flex items-start space-x-3 relative z-10">
+                            <div class="w-10 h-10 rounded-full bg-slate-200 text-slate-400 flex items-center justify-center text-xs font-bold flex-shrink-0">
+                                <i class="fa-solid fa-user-check"></i>
+                            </div>
+                            <div class="pt-0.5">
+                                <h4 class="text-xs font-bold text-slate-400">Jadwal Fitting / Proofing 1</h4>
+                                <p class="text-[10px] text-slate-400 mt-0.5">Estimasi 09 Nov 2026 - Pengecekan kenyamanan di studio/rumah.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 5 (Pending) -->
+                        <div class="flex items-start space-x-3 relative z-10">
+                            <div class="w-10 h-10 rounded-full bg-slate-200 text-slate-400 flex items-center justify-center text-xs font-bold flex-shrink-0">
+                                <i class="fa-solid fa-box-open"></i>
+                            </div>
+                            <div class="pt-0.5">
+                                <h4 class="text-xs font-bold text-slate-400">Quality Control & Finishing</h4>
+                                <p class="text-[10px] text-slate-400 mt-0.5">Pembersihan benang, gosok uap steam, & packaging eksklusif.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 6 (Pending) -->
+                        <div class="flex items-start space-x-3 relative z-10">
+                            <div class="w-10 h-10 rounded-full bg-slate-200 text-slate-400 flex items-center justify-center text-xs font-bold flex-shrink-0">
+                                <i class="fa-solid fa-truck-ramp-box"></i>
+                            </div>
+                            <div class="pt-0.5">
+                                <h4 class="text-xs font-bold text-slate-400">Siap Diambil / Pengiriman Courier</h4>
+                                <p class="text-[10px] text-slate-400 mt-0.5">Pakaian siap dikirim atau diambil langsung.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- TAB 6: PROFIL SAYA -->
+            <section id="view-profile" class="tab-content p-4 space-y-4">
+                
+                <!-- Profile Header -->
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 text-center relative">
+                    <div class="w-20 h-20 rounded-full bg-slate-200 mx-auto border-4 border-brand-gold/30 overflow-hidden shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Avatar Kak Septi" class="w-full h-full object-cover">
+                    </div>
+                    <h2 class="text-base font-bold text-slate-900 mt-2">Kak Septi (Pelanggan VIP)</h2>
+                    <p class="text-xs text-slate-500">septi.stitch@example.com | +62 812-3456-7890</p>
+                    <span class="inline-block mt-2 bg-amber-100 text-amber-900 text-[10px] font-bold px-3 py-0.5 rounded-full border border-amber-300">
+                        <i class="fa-solid fa-crown text-brand-gold mr-1"></i> Member Premium
+                    </span>
+                </div>
+
+                <!-- Account Settings List -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden divide-y divide-slate-100 text-xs font-medium text-slate-700">
+                    <button onclick="switchTab('measurements')" class="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 transition">
+                        <div class="flex items-center space-x-3">
+                            <i class="fa-solid fa-ruler-vertical text-brand-gold text-sm w-5"></i>
+                            <span>Daftar Ukuran Tersimpan</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-slate-300 text-[10px]"></i>
+                    </button>
+
+                    <button onclick="switchTab('tracking')" class="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 transition">
+                        <div class="flex items-center space-x-3">
+                            <i class="fa-solid fa-clock-rotate-left text-blue-500 text-sm w-5"></i>
+                            <span>Riwayat Jahitan Selesai</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-slate-300 text-[10px]"></i>
+                    </button>
+
+                    <button onclick="contactTailorWA()" class="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 transition">
+                        <div class="flex items-center space-x-3">
+                            <i class="fa-solid fa-headset text-emerald-500 text-sm w-5"></i>
+                            <span>Bantuan & Konsultasi Penjahit</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-slate-300 text-[10px]"></i>
+                    </button>
+
+                    <div class="w-full p-3.5 flex items-center justify-between text-slate-400">
+                        <div class="flex items-center space-x-3">
+                            <i class="fa-solid fa-location-dot text-rose-500 text-sm w-5"></i>
+                            <span>Alamat Pengiriman Utama</span>
+                        </div>
+                        <span class="text-[10px] text-slate-500 font-semibold truncate max-w-[120px]">Jl. Mawar No. 12, Jakarta</span>
+                    </div>
+                </div>
+
+                <div class="text-center pt-2">
+                    <p class="text-[10px] text-slate-400">Septi Stitch Mobile App v2.4.0</p>
+                    <p class="text-[9px] text-slate-400 mt-0.5">© 2026 Septi Stitch Atelier. All Rights Reserved.</p>
+                </div>
+
+            </section>
+
+        </main>
+
+        <!-- Bottom Navigation Bar -->
+        <nav class="bg-brand-navy border-t border-slate-800 absolute bottom-0 left-0 right-0 z-30 px-2 py-2 flex justify-around items-center">
+            
+            <!-- Tab 1: Beranda -->
+            <button onclick="switchTab('home')" id="nav-home" class="nav-btn active flex flex-col items-center py-1 px-3 rounded-xl text-brand-gold transition">
+                <i class="fa-solid fa-house text-base"></i>
+                <span class="text-[10px] font-semibold mt-1">Beranda</span>
+            </button>
+
+            <!-- Tab 2: Katalog -->
+            <button onclick="switchTab('catalog')" id="nav-catalog" class="nav-btn flex flex-col items-center py-1 px-3 rounded-xl text-slate-400 hover:text-slate-200 transition">
+                <i class="fa-solid fa-shirt text-base"></i>
+                <span class="text-[10px] font-semibold mt-1">Katalog</span>
+            </button>
+
+            <!-- Tab 3: Order (Center Action Button) -->
+            <button onclick="switchTab('order')" id="nav-order" class="nav-btn flex flex-col items-center py-1 px-3 rounded-xl text-slate-400 hover:text-slate-200 transition relative">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-brand-gold to-brand-goldlight text-slate-950 flex items-center justify-center -mt-5 shadow-lg border-2 border-brand-navy">
+                    <i class="fa-solid fa-plus text-base font-bold"></i>
+                </div>
+                <span class="text-[10px] font-semibold mt-0.5">Pesan</span>
+            </button>
+
+            <!-- Tab 4: Ukuran -->
+            <button onclick="switchTab('measurements')" id="nav-measurements" class="nav-btn flex flex-col items-center py-1 px-3 rounded-xl text-slate-400 hover:text-slate-200 transition">
+                <i class="fa-solid fa-tape text-base"></i>
+                <span class="text-[10px] font-semibold mt-1">Ukuran</span>
+            </button>
+
+            <!-- Tab 5: Lacak -->
+            <button onclick="switchTab('tracking')" id="nav-tracking" class="nav-btn flex flex-col items-center py-1 px-3 rounded-xl text-slate-400 hover:text-slate-200 transition">
+                <i class="fa-solid fa-truck-fast text-base"></i>
+                <span class="text-[10px] font-semibold mt-1">Lacak</span>
+            </button>
+
+        </nav>
+
+        <!-- Floating Toast Notification -->
+        <div id="toast" class="fixed top-12 left-1/2 transform -translate-x-1/2 bg-slate-900/95 text-white px-4 py-2.5 rounded-full shadow-2xl text-xs font-semibold flex items-center space-x-2 z-50 pointer-events-none transition opacity-0 scale-90 border border-slate-700">
+            <i id="toastIcon" class="fa-solid fa-circle-check text-brand-gold"></i>
+            <span id="toastMessage">Pesan berhasil disimpan!</span>
+        </div>
+
+        <!-- Price Estimator Modal -->
+        <div id="estimatorModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+            <div class="bg-white w-full max-w-[390px] rounded-t-3xl sm:rounded-3xl p-5 space-y-4 shadow-2xl animate-in slide-in-from-bottom duration-300">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-sm font-bold text-slate-900"><i class="fa-solid fa-calculator text-brand-gold mr-1.5"></i> Simulator Estimasi Biaya Jahit</h3>
+                    <button onclick="closeEstimatorModal()" class="w-7 h-7 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center hover:bg-slate-200">
+                        <i class="fa-solid fa-xmark text-xs"></i>
+                    </button>
+                </div>
+
+                <div class="space-y-3 text-xs">
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Kategori Pakaian</label>
+                        <select id="estCategory" onchange="calculatePrice()" class="w-full p-2.5 rounded-xl border border-slate-200">
+                            <option value="250000">Kebaya / Gaun Pesta (Mulai Rp 250k)</option>
+                            <option value="180000">Kemeja Batik / Formal (Mulai Rp 180k)</option>
+                            <option value="650000">Jas Formal / Blazer (Mulai Rp 650k)</option>
+                            <option value="220000">Gamis / Busana Muslim (Mulai Rp 220k)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Tingkat Kerumitan Model</label>
+                        <select id="estComplexity" onchange="calculatePrice()" class="w-full p-2.5 rounded-xl border border-slate-200">
+                            <option value="0">Standar / Simple Clean</option>
+                            <option value="50000">Sedang (Tambah Payet/Kupnat Khusus +Rp 50k)</option>
+                            <option value="100000">Rumit (Payet Penuh / Multi Layer +Rp 100k)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Lapis Furing</label>
+                        <select id="estFuring" onchange="calculatePrice()" class="w-full p-2.5 rounded-xl border border-slate-200">
+                            <option value="0">Tanpa Furing Tambahan</option>
+                            <option value="35000">Furing Arrow / Asahi (+Rp 35k)</option>
+                            <option value="60000">Furing Dormeuil / Silk (+Rp 60k)</option>
+                        </select>
+                    </div>
+
+                    <div class="bg-amber-50 p-3 rounded-2xl border border-amber-200 mt-3 text-center">
+                        <span class="text-[10px] text-amber-800 font-medium block">Total Estimasi Ongkos Jahit</span>
+                        <span id="estResult" class="text-xl font-black text-brand-navy mt-0.5 block">Rp 250.000</span>
+                    </div>
+                </div>
+
+                <button onclick="useEstimatedPrice()" class="w-full bg-brand-navy hover:bg-slate-800 text-white font-bold text-xs py-3 rounded-xl transition">
+                    Gunakan Estimasi Ini di Pesanan
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script src="script.js"></script>
+
+</body>
+</html>

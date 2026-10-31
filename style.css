@@ -1,0 +1,48 @@
+/* ==========================================================================
+   Septi Stitch Custom Styling
+   ========================================================================== */
+
+/* Tailwind CSS Directives (for Tailwind CLI / PostCSS setup) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Scrollbar Utility */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Timeline Vertical Line for Order Tracking */
+.timeline-line::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    left: 19px;
+    width: 3px;
+    background-color: #E2E8F0;
+    z-index: 0;
+}
+
+/* Tab Content Visibility & Transitions */
+.tab-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+}
+
+.tab-content.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Custom Input Focus Ring Styling */
+.input-focus-gold:focus {
+    outline: none;
+    border-color: #D97706;
+    box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.2);
+}
